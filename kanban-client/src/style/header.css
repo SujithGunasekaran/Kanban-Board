@@ -1,0 +1,20 @@
+.header_container {
+    display: none;
+    /* display: flex; */
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 15px;
+    background-color: var(--header-bg);
+
+}
+
+.header_title {
+    font-family: 2.1rem;
+    font-weight: 600;
+    font-family: var(--font-mono);
+}
+
+/* .header_container.show {
+    display: flex;
+    padding: 15px;
+} */

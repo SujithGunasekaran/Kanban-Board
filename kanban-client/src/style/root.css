@@ -1,0 +1,31 @@
+:root {
+
+    --body-bg: #212121;
+    --header-bg: #1D84EF;
+
+    --btn-highlight-bg: #1D84EF;
+    --btn-highlight-bg-hover: #1a72cf;
+
+    --text-highlight: #1D84EF;
+    --text-dark-1: white;
+    --text-black-1: #F2F2F2;
+    --text-black-2: #838585;
+
+    --input-bg: #383838;
+    --input-border: #383838;
+    --input-border-highlight: #1D84EF;
+
+    --font-roboto: 'Roboto', sans-serif;
+}
+
+.body {
+    width: 100%;
+    color: white;
+    background-color: var(--body-bg);
+}
+
+.body_main {
+    padding: 15px 15px;
+    min-height: 100vh;
+    scroll-behavior: smooth;
+}
