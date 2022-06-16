@@ -30,6 +30,7 @@ module.exports = {
     async loginKanbanUser(req, res) {
         try {
             const { userName, password } = req.body;
+            if (!userName || !password) throw new Error('Invalid Input');
             const userInfo = await kanbanUserModel.findOne({ userName });
             if (!userInfo) throw new Error('Invalid Username');
             const isPasswordMatched = await bcrypt.compare(password, userInfo.password);

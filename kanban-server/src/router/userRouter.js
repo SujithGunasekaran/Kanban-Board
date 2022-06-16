@@ -5,6 +5,6 @@ const userController = require('../controller/userController');
 
 router.route('/authenticate').get(userController.authenticateUser);
 router.route('/createUser').post(userController.createKanbanUser);
-router.route('/loginUser').get(userController.loginKanbanUser);
+router.route('/loginUser').post(userController.loginKanbanUser);
 
 module.exports = router;

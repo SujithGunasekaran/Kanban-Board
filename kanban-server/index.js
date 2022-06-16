@@ -18,6 +18,8 @@ server.use(express.json());
 
 // restrict response header
 server.use(cors({
+    credentials: true,
+    origin: 'http://localhost:8080',
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type']
 }));
