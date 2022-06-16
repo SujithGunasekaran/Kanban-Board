@@ -5,7 +5,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports = {
-    port: process.env.port,
-    mongoURI: process.env.mongoURI,
-    jwtSecret: process.env.jwtSecret
+    PORT: process.env.port,
+    MONGO_URI: process.env.mongoURI,
+    JWT_SECRET: process.env.jwtSecret,
+    SESSION_SECRET: process.env.sessionSecret
 }

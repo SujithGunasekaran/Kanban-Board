@@ -60,6 +60,13 @@
     border: 1px solid var(--input-border-highlight);
 }
 
+.form_input_error {
+    font-size: .800rem;
+    color: var(--danger-alert-text);
+    letter-spacing: 0.015rem;
+    font-weight: 500;
+}
+
 .form_btn {
     margin: 25px 0px 15px 0px;
     width: 100%;
@@ -70,9 +77,19 @@
     border: none;
     border-radius: 6px;
     background-color: var(--btn-highlight-bg);
-    transition: 0.4s all ease-in-out;
 }
 
 .form_btn:hover {
     background-color: var(--btn-highlight-bg-hover);
+    transition: 0.4s all ease-in-out;
+}
+
+.form_btn:disabled {
+    cursor: not-allowed;
+    background-color: rgb(92, 92, 92);
+}
+
+.form_btn:disabled:hover {
+    background-color: rgb(92, 92, 92);
+
 }

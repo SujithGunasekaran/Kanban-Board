@@ -2,7 +2,11 @@
 
 const express = require('express');
 const cors = require('cors');
-const connectMongodb = require('./src/mongodb');
+const { connectMongodb } = require('./src/mongodb');
+const { createSession } = require('./src/session');
+
+// router
+const userRouter = require('./src/router/userRouter');
 
 // Initialize server
 const server = express();
@@ -14,12 +18,19 @@ server.use(express.json());
 
 // restrict response header
 server.use(cors({
+    credentials: true,
+    origin: 'http://localhost:8080',
     methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'x-powered-token']
+    allowedHeaders: ['Content-Type']
 }));
 
 // establishing mongodb connection
 connectMongodb();
+
+// creating the session
+createSession(server);
+
+server.use('/api/v1/user', userRouter);
 
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

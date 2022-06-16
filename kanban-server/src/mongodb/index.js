@@ -1,19 +1,28 @@
 "use strict";
 
 const mongoose = require('mongoose');
-const { mongoURI } = require('../config');
+const session = require('express-session');
+const mongodbStore = require('connect-mongodb-session')(session);
+const { MONGO_URI } = require('../config');
 
 require('./model/userModel');
 
-module.exports = function () {
+exports.connectMongodb = function () {
 
-    mongoose.connect(`${mongoURI}`, {
+    mongoose.connect(`${MONGO_URI}`, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true
     }, () => {
         console.log("mongodb Connected successfully");
     })
 
+}
+
+exports.createMongodbSession = function () {
+    const store = new mongodbStore({
+        uri: `${MONGO_URI}`,
+        collection: 'kanbanSession'
+    });
+
+    return store;
 }
