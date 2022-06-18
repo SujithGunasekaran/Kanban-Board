@@ -1,16 +1,27 @@
 <script setup>
 
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import InlineMessage from '../reusable-components/InlineMessageVue';
 import useUerForm from '../composable/useUserform';
 import { userAxios } from '../api/axiosInstance';
 import { validateForm } from '../javascript/commonUtil';
+import { userStore } from '../store/userStore';
+import commonApi from '../api/commonApi';
 
 // ref
 let isLoading = ref(false);
 let errorMessage = ref('');
 let successMessage = ref('');
 let formError = reactive({});
+let isAuthenticating = ref(false);
+
+// router
+const router = useRouter();
+
+// store
+const userStoreInfo = userStore();
+
 
 // composables
 const {
@@ -19,8 +30,23 @@ const {
     resetForm
 } = useUerForm();
 
+// vue methos
+watch(
+    () => userStoreInfo.isUserLoggedIn,
+    (isUserLoggedIn) => {
+        if (isUserLoggedIn) {
+            router.push({
+                name: 'home'
+            })
+        }
+    }
+)
 
 // methods
+onMounted(() => {
+    checkIsUserAuthenticated();
+})
+
 async function handleFormSubmit() {
     const isFormValid = validateForm(['userName', 'password'], userDetail.formData, formError);
     if (!isFormValid) return;
@@ -59,6 +85,15 @@ function closeInlineMessage(type) {
         default: return;
     }
 }
+
+async function checkIsUserAuthenticated() {
+    isAuthenticating.value = true;
+    const response = await commonApi.authenticateUser(userStoreInfo);
+    if (response || !response) {
+        isAuthenticating.value = false;
+    }
+}
+
 
 </script>
 
@@ -104,6 +139,12 @@ function closeInlineMessage(type) {
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="overlay" v-if="isAuthenticating">
+        <div class="middle_loader">
+            <div class="spinner-border light spinner_loader" role="status"></div>
+            <div class="text">Authenticating...</div>
         </div>
     </div>
 </template>

@@ -1,15 +1,25 @@
 <script setup>
 
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import InlineMessage from '../reusable-components/InlineMessageVue';
 import useUerForm from '../composable/useUserform';
 import { userAxios } from '../api/axiosInstance';
 import { validateForm } from '../javascript/commonUtil';
+import { userStore } from '../store/userStore';
+import commonApi from '../api/commonApi';
 
 // ref
 let isLoading = ref(false);
+let isAuthenticating = ref(false);
 let errorMessage = ref('');
 let formError = reactive({});
+
+// router
+const router = useRouter();
+
+// store
+const userStoreInfo = userStore();
 
 // composables
 const {
@@ -18,14 +28,33 @@ const {
 } = useUerForm();
 
 
+// vue methos
+watch(
+    () => userStoreInfo.isUserLoggedIn,
+    (isUserLoggedIn) => {
+        if (isUserLoggedIn) {
+            router.push({
+                name: 'home'
+            })
+        }
+    }
+)
+
 // methods
+onMounted(() => {
+    checkIsUserAuthenticated();
+})
+
 async function handleFormSubmit() {
     const isFormValid = validateForm(['userName', 'password'], userDetail.formData, formError);
     if (!isFormValid) return;
     try {
         isLoading.value = true;
         const response = await userAxios.post('/loginUser', userDetail.formData);
-        console.log("res", response.data);
+        const { data = null } = response;
+        if (!data) throw new Error('Something went wrong');
+        userStoreInfo.setUserDetail(data.userInfo);
+        userStoreInfo.setUserLoggedIn(true);
     }
     catch (err) {
         const { response = null } = err;
@@ -42,6 +71,14 @@ async function handleFormSubmit() {
 
 function closeInlineMessage() {
     errorMessage.value = '';
+}
+
+async function checkIsUserAuthenticated() {
+    isAuthenticating.value = true;
+    const response = await commonApi.authenticateUser(userStoreInfo);
+    if (response || !response) {
+        isAuthenticating.value = false;
+    }
 }
 
 </script>
@@ -85,6 +122,12 @@ function closeInlineMessage() {
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="overlay" v-if="isAuthenticating">
+        <div class="middle_loader">
+            <div class="spinner-border light spinner_loader" role="status"></div>
+            <div class="text">Authenticating...</div>
         </div>
     </div>
 </template>

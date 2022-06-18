@@ -13,11 +13,15 @@ module.exports = {
             const decodedToken = jwt.verify(userInfo.token, `${JWT_SECRET}`);
             if (!decodedToken) throw new Error('Invalid Token');
             const { id } = decodedToken;
-            const isValidUser = kanbanUserModel.findOne({ _id: id });
-            if (!isValidUser) throw new Error('Invalid Token');
+            const validUserDetail = kanbanUserModel.findOne({ _id: id });
+            if (!validUserDetail) throw new Error('Invalid Token');
             res.status(200).json({
                 status: 'Success',
-                message: 'User Authenticated'
+                message: 'User Authenticated',
+                userInfo: {
+                    id: userInfo.id,
+                    userName: userInfo.userName
+                }
             });
         }
         catch (err) {
