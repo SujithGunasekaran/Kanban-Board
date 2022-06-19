@@ -50,15 +50,33 @@ module.exports = {
                 if (err) {
                     throw new Error('Error Creating the session');
                 }
-                else {
-                    res.status(200).json({
-                        status: 'Success',
-                        userInfo: {
-                            id: userInfo._id,
-                            userName: userInfo.userName
-                        }
-                    });
+                res.status(200).json({
+                    status: 'Success',
+                    userInfo: {
+                        id: userInfo._id,
+                        userName: userInfo.userName
+                    }
+                });
+            })
+        }
+        catch (err) {
+            res.status(404).json({
+                status: 'Failed',
+                message: err.message
+            })
+        }
+    },
+    async logoutKanbanUser(req, res) {
+        try {
+            req.session.destroy((err) => {
+                if (err) {
+                    throw new Error('Something went wrong');
                 }
+                res.clearCookie('kanbanSession');
+                res.status(200).json({
+                    status: 'Success',
+                    message: 'Success'
+                })
             })
         }
         catch (err) {

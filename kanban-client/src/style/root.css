@@ -1,17 +1,19 @@
 :root {
 
     --body-bg: #212121;
-    --secondary-bg: #535353;
-    --header-bg: #1D84EF;
+    --secondary-bg: #383838;
+    --card-bg: #383838;
+    --border-color: rgb(77, 76, 76);
 
     --btn-highlight-bg: #1D84EF;
     --btn-highlight-bg-hover: #1a72cf;
 
-    --text-highlight: #1D84EF;
+    --text-highlight: #1DA1F2;
     --text-dark-1: white;
     --text-black-1: #F2F2F2;
     --text-black-2: #838585;
 
+    --danger-btn-bg: #dc3545;
     --danger-alert-text: #ff5a4e;
     --danger-alert-bg: rgba(248, 81, 73, 0.1);
     --danger-alert-border: rgba(248, 81, 73, 0.4);
@@ -60,9 +62,67 @@
 .overlay {
     position: fixed;
     top: 0;
+    left: 0;
     height: 100vh;
     width: 100%;
-    background-color: rgba(90, 90, 90, 0.7);
+    background-color: rgba(36, 35, 35, 0.7);
+}
+
+.model_container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40%;
+    padding: 25px 20px;
+    border-radius: 10px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    transform: translate(-50%, -50%);
+    transition: 0.4s all ease-in-out;
+}
+
+.model_title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: var(--font-mono);
+}
+
+.model_info {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.010rem;
+}
+
+.model_footer_container {
+    margin: 20px 0px 5px 0px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+}
+
+.model_footer_container .cancel {
+    border: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    color: white;
+    font-size: .9rem;
+    font-weight: 500;
+    background-color: var(--danger-btn-bg);
+}
+
+.model_footer_container .confirm {
+    border: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    color: white;
+    font-size: .9rem;
+    font-weight: 500;
+    background-color: var(--btn-highlight-bg);
+}
+
+.model_footer_container .confirm:disabled {
+    cursor: not-allowed;
+    background-color: rgb(92, 92, 92);
 }
 
 .middle_loader {

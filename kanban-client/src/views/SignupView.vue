@@ -1,6 +1,6 @@
 <script setup>
 
-import { ref, reactive, onMounted, watch } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import InlineMessage from '../reusable-components/InlineMessageVue';
 import useUerForm from '../composable/useUserform';
@@ -30,17 +30,6 @@ const {
     resetForm
 } = useUerForm();
 
-// vue methos
-watch(
-    () => userStoreInfo.isUserLoggedIn,
-    (isUserLoggedIn) => {
-        if (isUserLoggedIn) {
-            router.push({
-                name: 'home'
-            })
-        }
-    }
-)
 
 // methods
 onMounted(() => {
@@ -92,6 +81,12 @@ async function checkIsUserAuthenticated() {
     if (response || !response) {
         isAuthenticating.value = false;
     }
+    if (response) {
+        router.push({
+            name: 'home'
+        })
+    }
+
 }
 
 

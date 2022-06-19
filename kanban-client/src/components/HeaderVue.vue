@@ -2,11 +2,14 @@
 
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import ConfirmModel from '../reusable-components/ConfirmModel';
 import { userStore } from '../store/userStore';
 import commonApi from '../api/commonApi';
 
 // ref
-const dropdownRef = ref(null);
+const showDropdown = ref(false);
+const showConfirmModel = ref(false);
+const isLoading = ref(false);
 
 // router
 const route = useRoute();
@@ -25,26 +28,43 @@ onMounted(async function () {
     }
 })
 
-function closeUserDropdown(element) {
-    element.classList.remove('show');
+function handleUserDropdown(event) {
+    event.stopPropagation();
+    if (showDropdown.value) {
+        closeDropdown();
+        return;
+    }
+    showDropdown.value = true;
+    document.addEventListener('click', closeDropdown)
 }
 
-function handleUserDropdown() {
-    const dropdownElement = dropdownRef.value;
-    if (dropdownElement) {
-        if (dropdownElement.classList.contains('show')) {
-            closeUserDropdown(dropdownElement);
-        }
-        else {
-            dropdownElement.classList.add('show');
-        }
-    }
+function closeDropdown() {
+    showDropdown.value = false;
+    document.removeEventListener('click', closeDropdown);
 }
 
 function redirectRouteToLogin() {
     router.push({
         name: 'login'
     });
+}
+
+function openConfirmModel() {
+    showConfirmModel.value = true;
+}
+
+function closeConfirmModel() {
+    showConfirmModel.value = false;
+}
+
+async function logoutUser() {
+    isLoading.value = true;
+    const response = await commonApi.logoutUser(userStoreInfo);
+    isLoading.value = false;
+    if (response === true) {
+        closeConfirmModel();
+        redirectRouteToLogin();
+    }
 }
 
 </script>
@@ -63,7 +83,7 @@ function redirectRouteToLogin() {
                     </svg>
                 </div>
             </div>
-            <div class="header_user_dropdown" ref="dropdownRef">
+            <div class="header_user_dropdown" :class="showDropdown ? 'show' : ''" v-if="showDropdown">
                 <div class="list">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -74,9 +94,11 @@ function redirectRouteToLogin() {
                                 d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
                         </svg>
                     </div>
-                    <div class="title">Signout</div>
+                    <div @click="openConfirmModel" class="title">Signout</div>
                 </div>
             </div>
         </div>
     </div>
+    <ConfirmModel v-if="showConfirmModel" :displayMessage="'Are you sure you want to logout ?'"
+        :confirmDisplayName="'Logout'" @onCancel="closeConfirmModel" @onConfirm="logoutUser" :isLoading="isLoading" />
 </template>

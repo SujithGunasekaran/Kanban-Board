@@ -14,6 +14,20 @@ const commonApi = {
             console.log("authenticate err", err);
             return false;
         }
+    },
+    async logoutUser(store) {
+        try {
+            const response = await userAxios.get('/logoutUser');
+            const { data = null } = response;
+            if (!data) throw new Error('Something went wrong');
+            store.setUserDetail({});
+            store.setUserLoggedIn(false);
+            return true;
+        }
+        catch (err) {
+            console.log("logout err", err);
+            return false;
+        }
     }
 }
 
