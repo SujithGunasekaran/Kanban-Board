@@ -43,6 +43,7 @@ async function handleFormSubmit() {
         if (!data) throw new Error('Something went wrong');
         userStoreInfo.setUserDetail(data.userInfo);
         userStoreInfo.setUserLoggedIn(true);
+        redirectToHome();
     }
     catch (err) {
         const { response = null } = err;
@@ -68,10 +69,14 @@ async function checkIsUserAuthenticated() {
         isAuthenticating.value = false;
     }
     if (response) {
-        router.push({
-            name: 'home'
-        })
+        redirectToHome();
     }
+}
+
+function redirectToHome() {
+    router.push({
+        name: 'home'
+    })
 }
 
 </script>
