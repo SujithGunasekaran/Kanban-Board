@@ -13,11 +13,15 @@ module.exports = {
             const decodedToken = jwt.verify(userInfo.token, `${JWT_SECRET}`);
             if (!decodedToken) throw new Error('Invalid Token');
             const { id } = decodedToken;
-            const isValidUser = kanbanUserModel.findOne({ _id: id });
-            if (!isValidUser) throw new Error('Invalid Token');
+            const validUserDetail = kanbanUserModel.findOne({ _id: id });
+            if (!validUserDetail) throw new Error('Invalid Token');
             res.status(200).json({
                 status: 'Success',
-                message: 'User Authenticated'
+                message: 'User Authenticated',
+                userInfo: {
+                    id: userInfo.id,
+                    userName: userInfo.userName
+                }
             });
         }
         catch (err) {
@@ -46,15 +50,33 @@ module.exports = {
                 if (err) {
                     throw new Error('Error Creating the session');
                 }
-                else {
-                    res.status(200).json({
-                        status: 'Success',
-                        userInfo: {
-                            id: userInfo._id,
-                            userName: userInfo.userName
-                        }
-                    });
+                res.status(200).json({
+                    status: 'Success',
+                    userInfo: {
+                        id: userInfo._id,
+                        userName: userInfo.userName
+                    }
+                });
+            })
+        }
+        catch (err) {
+            res.status(404).json({
+                status: 'Failed',
+                message: err.message
+            })
+        }
+    },
+    async logoutKanbanUser(req, res) {
+        try {
+            req.session.destroy((err) => {
+                if (err) {
+                    throw new Error('Something went wrong');
                 }
+                res.clearCookie('kanbanSession');
+                res.status(200).json({
+                    status: 'Success',
+                    message: 'Success'
+                })
             })
         }
         catch (err) {
