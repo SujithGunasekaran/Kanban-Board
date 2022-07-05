@@ -8,6 +8,7 @@
     --btn-highlight-bg: #1D84EF;
     --btn-highlight-bg-hover: #1a72cf;
 
+    --text-highlight-dark: rgb(29, 161, 242, 0.2);
     --text-highlight: #1DA1F2;
     --text-dark-1: white;
     --text-black-1: #F2F2F2;
@@ -41,7 +42,7 @@
 }
 
 .body_main {
-    padding: 15px 15px;
+    padding: 15px 5px;
     min-height: 100vh;
     scroll-behavior: smooth;
 }

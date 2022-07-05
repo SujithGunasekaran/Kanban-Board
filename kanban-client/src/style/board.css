@@ -1,0 +1,94 @@
+.board_container {
+    background-color: var(--card-bg);
+    border-radius: 6px;
+    padding: 10px 0px;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.board_container::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 0px;
+    background-color: var(--card-bg);
+}
+
+.board_container::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.board_container::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 20px;
+    background-color: grey;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.board_header {
+    padding: 0px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.board_title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.015rem;
+    font-family: var(--font-mono);
+}
+
+.board_add_icon {
+    padding: 0px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--text-highlight-dark);
+}
+
+.board_add_icon .icon {
+    color: var(--text-highlight);
+    width: 15px;
+    height: 15px;
+    margin-top: -2.5px;
+}
+
+.board_body {
+    padding: 25px 5px;
+}
+
+.board_card_container {
+    padding: 10px 10px;
+    border-radius: 7px;
+    background-color: var(--body-bg);
+    box-shadow: 0px 10px 16px -9px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 0px 10px 16px -9px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 10px 16px -9px rgba(0, 0, 0, 0.6);
+}
+
+.board_card_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.board_card_title {
+    font-size: 0.850rem;
+    font-weight: 600;
+    letter-spacing: 0.025rem;
+    font-family: var(--font-mono);
+}
+
+.board_card_body {
+    padding: 15px 0px;
+}
+
+.board_card_body_info {
+    font-size: 0.7rem;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.025rem;
+    font-family: var(--font-mono);
+}

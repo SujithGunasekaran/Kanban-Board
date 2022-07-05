@@ -3,6 +3,7 @@ import HeaderVue from "./components/HeaderVue.vue";
 import './style/root.css';
 import './style/header.css';
 import './style/form.css';
+import './style/board.css';
 </script>
 
 <template>
