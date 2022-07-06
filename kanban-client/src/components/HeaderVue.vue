@@ -2,9 +2,9 @@
 
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import ConfirmModel from '../reusable-components/ConfirmModel';
-import { userStore } from '../store/userStore';
-import commonApi from '../api/commonApi';
+import ConfirmModel from 'src/reusable-components/ConfirmModel';
+import { userStore } from 'src/store/userStore';
+import commonApi from 'src/api/commonApi';
 
 // ref
 const showDropdown = ref(false);

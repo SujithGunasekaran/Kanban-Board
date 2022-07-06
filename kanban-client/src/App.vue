@@ -1,9 +1,9 @@
 <script setup>
-import HeaderVue from "./components/HeaderVue.vue";
-import './style/root.css';
-import './style/header.css';
-import './style/form.css';
-import './style/board.css';
+import HeaderVue from "src/components/HeaderVue.vue";
+import 'src/style/root.css';
+import 'src/style/header.css';
+import 'src/style/form.css';
+import 'src/style/board.css';
 </script>
 
 <template>

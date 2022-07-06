@@ -2,12 +2,12 @@
 
 import { ref, reactive, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import InlineMessage from '../reusable-components/InlineMessageVue';
-import useUerForm from '../composable/useUserform';
-import { userAxios } from '../api/axiosInstance';
-import { validateForm } from '../javascript/commonUtil';
-import { userStore } from '../store/userStore';
-import commonApi from '../api/commonApi';
+import InlineMessage from 'src/reusable-components/InlineMessageVue';
+import useUerForm from 'src/composable/useUserform';
+import { userAxios } from 'src/api/axiosInstance';
+import { validateForm } from 'src/javascript/commonUtil';
+import { userStore } from 'src/store/userStore';
+import commonApi from 'src/api/commonApi';
 
 // ref
 let isLoading = ref(false);

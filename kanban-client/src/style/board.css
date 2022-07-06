@@ -28,7 +28,7 @@
 }
 
 .board_header {
-    padding: 0px 10px;
+    padding: 0px 10px 25px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -56,7 +56,7 @@
 }
 
 .board_body {
-    padding: 25px 5px;
+    padding: 5px 5px;
 }
 
 .board_card_container {
@@ -79,6 +79,21 @@
     font-weight: 600;
     letter-spacing: 0.025rem;
     font-family: var(--font-mono);
+}
+
+.board_card_header_icon {
+    padding: 0px 4px;
+    cursor: grab;
+}
+
+.board_card_header_icon.grabbing {
+    cursor: grabbing;
+}
+
+.board_card_header_icon .icon {
+    color: rgb(148, 147, 147);
+    width: 20px;
+    height: 20px;
 }
 
 .board_card_body {

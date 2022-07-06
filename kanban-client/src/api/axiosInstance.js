@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { userUrl } from './apiUrl';
+import { userUrl } from 'src/api/apiUrl';
 
 export const userAxios = axios.create({
     baseURL: `${userUrl}`,
